@@ -8,6 +8,8 @@ import ProductFormEdit from './COMPONENTS/product/productFormEdit';
 import AllCats from './COMPONENTS/cat/AllCats';
 import AllProducts from './COMPONENTS/product/AllProducts';
 import CatFormAdd from './COMPONENTS/cat/catFormAdd';
+import SignUp from './COMPONENTS/auth/signUp';
+import SignIn from './COMPONENTS/auth/signIn';
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
         <Route path="/cats" element={<AllCats/>}></Route>
         <Route path="/add-cat" element={<CatFormAdd/>}></Route>
         <Route path="/edit-cat/:id" element={<CatFormEdit/>}></Route>
+        <Route path="/signUp" element={<SignUp/>}></Route>
+        <Route path="/signIn" element={<SignIn/>}></Route>
       </Routes>
     </div>
   );

@@ -1,5 +1,11 @@
 import { Link } from "react-router-dom";
+import { signOut } from "../../REDUX/AUTH/slice";
+import { useDispatch } from "react-redux";
 const Nav = () => {
+    const dispatch=useDispatch()
+    const handleClick=()=>{
+        dispatch(signOut())
+    }
     return (
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
@@ -13,6 +19,15 @@ const Nav = () => {
                         </li>
                         <li class="nav-item">
                             <Link class="nav-link" to="/cats">cats</Link>
+                        </li>
+                        <li class="nav-item">
+                            <Link class="nav-link" to="/signUp">signUp</Link>
+                        </li>
+                        <li class="nav-item">
+                            <Link class="nav-link" to="/signIn">signIn</Link>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" onClick={handleClick}>signOut</a>
                         </li>
                     </ul>
                 </div>

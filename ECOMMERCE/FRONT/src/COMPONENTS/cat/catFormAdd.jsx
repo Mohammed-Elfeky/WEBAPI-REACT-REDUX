@@ -49,28 +49,6 @@ const CatFormAdd = () => {
 
     const whenSubmmit = () => {
 
-        if (nameSchema.validate({ name: formState.name }).error) {
-            setFormErrorsState({
-                ...formErrorsState,
-                name: nameSchema.validate({ name: formState.name }).error.message
-            }
-            )
-            return
-        }
-        setNameErr('')
-
-        if (descSchema.validate({ desc: formState.description }).error) {
-            setDescErr(descSchema.validate({ desc: desc }).error.message)
-            return
-        }
-        setDescErr('')
-
-        if (!img) {
-            setImgErr("the img is required")
-            return
-        }
-        setImgErr('')
-
         alert("hi")
         // dispatch(addCategory(formState))
     }

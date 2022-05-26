@@ -90,11 +90,7 @@ namespace ECOMMERCE.Controllers
                     expires: DateTime.Now.AddHours(3),
                     signingCredentials: creds
                 );
-
-
                 return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token), expiration = token.ValidTo });
-
-
             }
             catch
             {
