@@ -3,11 +3,13 @@ using ECOMMERCE.repos;
 using ECOMMERCE.models;
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ECOMMERCE.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize]
     public class CategoryController : ControllerBase
     {
         private readonly IcategoryRepo icategoryRepo;
