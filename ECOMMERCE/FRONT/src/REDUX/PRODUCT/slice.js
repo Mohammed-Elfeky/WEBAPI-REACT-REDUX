@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { addProduct, getProductById } from './api';
+import { addProduct, getAllProducts, getProductById } from './api';
 import { uploadImage } from '../../commonApis/imageUpload';
 import { updateProduct } from './api';
 
@@ -47,6 +47,14 @@ export const getProductAction = createAsyncThunk(
 );
 
 
+export const getProductsAction = createAsyncThunk(
+    'products/get',
+    async () => {
+        let { data } = await getAllProducts()
+        return data;
+    }
+);
+
 
 export const productSlice = createSlice({
     name: 'product',
@@ -69,6 +77,12 @@ export const productSlice = createSlice({
                 state.product = payload;
             })
             .addCase(getProductAction.rejected, (state, { payload }) => {
+                console.log("redirect to error page")
+            })
+            .addCase(getProductsAction.fulfilled, (state,{payload}) => {
+                state.products = payload;
+            })
+            .addCase(getProductsAction.rejected, (state, { payload }) => {
                 console.log("redirect to error page")
             })
     },

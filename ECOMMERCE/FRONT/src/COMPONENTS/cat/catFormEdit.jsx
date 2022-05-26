@@ -3,13 +3,16 @@ import { useDispatch, useSelector } from "react-redux"
 import { addCategory, editCat, getCatById } from '../../REDUX/CAT/slice'
 import Joi from "joi";
 import { nameSchema, descSchema } from '../../validation/cateogry'
+import { useParams } from "react-router-dom";
 const CatFormEdit = () => {
 
     const dispatch = useDispatch()
     const cat = useSelector(({ catState: { cat } }) => cat)
 
+    const {id}= useParams()
+
     useEffect(() => {
-        dispatch(getCatById(6))
+        dispatch(getCatById(id))
     }, [])
     useEffect(() => {
         if (cat) {

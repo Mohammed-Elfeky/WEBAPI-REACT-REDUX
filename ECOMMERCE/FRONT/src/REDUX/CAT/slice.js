@@ -11,11 +11,11 @@ const initialState = {
 
 export const addCategory = createAsyncThunk(
     'cat/add',
-    async ({ name, desc: Description, img }, thunkAPI) => {
+    async ({ name, description, img }, thunkAPI) => {
         try {
 
             //submit data
-            let { data } = await addCat({ name, Description })
+            let { data } = await addCat({ name, description })
 
             //upload image
             await uploadImage(data.id, "cat", img)

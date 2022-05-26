@@ -1,79 +1,93 @@
 import { useState } from "react";
-import {useDispatch,useSelector} from "react-redux"
-import {addCategory} from '../../REDUX/CAT/slice'
-import Joi from "joi";
-import {nameSchema,descSchema} from '../../validation/cateogry'
+import { useDispatch, useSelector } from "react-redux"
+import { addCategory } from '../../REDUX/CAT/slice'
+import Joi, { required } from "joi";
+import { nameSchema, descSchema } from '../../validation/cateogry'
+const schema = Joi.object({
+    name: Joi.string()
+        .alphanum()
+        .min(3)
+        .max(30)
+        .required(),
+    description: Joi.string()
+        .required(),
+})
+
 const CatFormAdd = () => {
-    
-    const dispatch=useDispatch()
-    const err=useSelector(({catState:{err}})=>err)
 
-    const[name,setName]= useState([])
-    const[desc,setDesc]= useState([])
-    const[img,setImg]= useState(null)
+    const dispatch = useDispatch()
+    const err = useSelector(({ catState: { err } }) => err)
 
-    const[nameErr,setNameErr]= useState('')
-    const[descErr,setDescErr]= useState('')
-    const[imgErr,setImgErr]= useState('')
-    
-    
-    const nameChange=(e)=>{
-        setName(e.target.value)
+    const [formState, setFormState] = useState({
+        name: "",
+        description: "",
+        img: null
+    })
+    const [formErrorsState, setFormErrorsState] = useState({
+        name: "",
+        description: "",
+        img: null
+    })
+
+
+
+    const handleChange = ({ target: { name, value, type, files } }) => {
+        if (type == "file") {
+            let form = new FormData()
+            form.append("image", files[0], files[0].name)
+            setFormState({
+                ...formState,
+                [name]: form
+            })
+            return;
+        }
+        setFormState({
+            ...formState,
+            [name]: value
+        })
     }
-    const descChange=(e)=>{
-        setDesc(e.target.value)        
-    }
-    const imgChange=(e)=>{
-        let form=new FormData()
-        form.append("image",e.target.files[0],e.target.files[0].name)
-        setImg(form)        
-    }
 
-    const whenSubmmit=()=>{
+    const whenSubmmit = () => {
 
-        // if(nameSchema.validate({name:name}).error){
-        //     setNameErr(nameSchema.validate({name:name}).error.message)
-        //     return
-        // } 
-        // setNameErr('')
-
-        // if(descSchema.validate({desc:desc}).error){
-        //     setDescErr(descSchema.validate({desc:desc}).error.message)
-        //     return
-        // }
-        // setDescErr('')
-
-        // if(!img){
-        //     setImgErr("the img is required")
-        //     return
-        // }
-        // setImgErr('')
-
-        // console.log("sadsdas")
-
-
-        dispatch(addCategory(
-            {
-                name,
-                desc,
-                img
+        if (nameSchema.validate({ name: formState.name }).error) {
+            setFormErrorsState({
+                ...formErrorsState,
+                name: nameSchema.validate({ name: formState.name }).error.message
             }
-        ))
+            )
+            return
+        }
+        setNameErr('')
+
+        if (descSchema.validate({ desc: formState.description }).error) {
+            setDescErr(descSchema.validate({ desc: desc }).error.message)
+            return
+        }
+        setDescErr('')
+
+        if (!img) {
+            setImgErr("the img is required")
+            return
+        }
+        setImgErr('')
+
+        alert("hi")
+        // dispatch(addCategory(formState))
     }
     return (
         <>
             <div>
-                <input onChange={nameChange} type="text" />
+                <input name="name" onChange={handleChange} type="text" />
                 <br />
-                <small>{nameErr}</small>
+                <small>{formErrorsState.name}</small>
                 <br />
-                <input onChange={descChange} type="text" />
+                <input name="description" onChange={handleChange} type="text" />
                 <br />
-                <small>{descErr}</small>
+                <small>{formErrorsState.description}</small>
                 <br />
-                <input onChange={imgChange} type="file"  />
+                <input name="img" onChange={handleChange} type="file" />
                 <br />
-                <small>{imgErr}</small>
+                {/* <small>{imgErr}</small> */}
                 <br />
                 <button onClick={whenSubmmit}>add</button>
                 <h1>{err}</h1>

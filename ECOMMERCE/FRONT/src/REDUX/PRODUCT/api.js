@@ -12,3 +12,6 @@ export const updateProduct=async(id,product)=>{
 export const getProductById=async(id)=>{
     return await axios.get(`${productBase}/${id}`);
 }
+export const getAllProducts=async()=>{
+    return await axios.get(`${productBase}`);
+}

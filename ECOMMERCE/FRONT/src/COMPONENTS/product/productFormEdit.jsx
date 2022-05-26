@@ -4,12 +4,14 @@ import { getAllCats } from '../../REDUX/CAT/slice'
 import { addProductAction, EditProductAction, getProductAction } from "../../REDUX/PRODUCT/slice";
 import Joi from "joi";
 import { nameSchema, descSchema } from '../../validation/cateogry'
+import { useParams } from "react-router-dom";
 const ProductFormEdit = () => {
 
     const dispatch = useDispatch()
     const cats = useSelector(({ catState: { cats } }) => cats)
     const theProduct = useSelector(({ productState: { product } }) => product)
-
+    const params= useParams()
+    console.log(params)
     const [name, setName] = useState([])
     const [desc, setDesc] = useState([])
     const [img, setImg] = useState('')
