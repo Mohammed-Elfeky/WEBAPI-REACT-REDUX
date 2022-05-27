@@ -1,0 +1,19 @@
+{
+    "order": {
+        "address": "string",
+        "date": "2022-05-27T14:12:18.000Z",
+        "u_id": "4cd7908c-1086-4c70-9a11-25d84d805209"
+    },
+    "orderProducts": [
+        {
+            "o_Id": 0,
+            "p_Id": 15,
+            "quantity": 5
+        },
+        {
+            "o_Id": 0,
+            "p_Id": 16,
+            "quantity": 3
+        }
+    ]
+}

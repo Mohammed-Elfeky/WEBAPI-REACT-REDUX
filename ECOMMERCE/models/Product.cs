@@ -22,6 +22,8 @@ namespace ECOMMERCE.models
         [Required]
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }
+        public virtual List<OrderProduct> OrderProducts { set; get; }
+
 
     }
 }

@@ -45,6 +45,8 @@ namespace ECOMMERCE
             services.AddScoped<IcategoryRepo, categoryRepo>();
             services.AddScoped<IproductRepo, productRepo>();
             services.AddScoped<IHelpersRepo, HelpersRepo>();
+            services.AddScoped<IOrderRepo, OrderRepo>();
+            services.AddScoped<IOrderProductRepo, OrderProductRepo>();
 
             services.AddCors(corsOptions => {
                 corsOptions.AddPolicy("policy", corsPolicyBuilder =>

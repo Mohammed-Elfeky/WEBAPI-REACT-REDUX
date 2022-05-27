@@ -4,14 +4,16 @@ using ECOMMERCE.models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ECOMMERCE.Migrations
 {
     [DbContext(typeof(context))]
-    partial class contextModelSnapshot : ModelSnapshot
+    [Migration("20220527122811_add-order-to-database")]
+    partial class addordertodatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -130,7 +132,7 @@ namespace ECOMMERCE.Migrations
 
                     b.HasIndex("u_id");
 
-                    b.ToTable("orders");
+                    b.ToTable("Order");
                 });
 
             modelBuilder.Entity("ECOMMERCE.models.OrderProduct", b =>
@@ -148,7 +150,7 @@ namespace ECOMMERCE.Migrations
 
                     b.HasIndex("p_Id");
 
-                    b.ToTable("orderProducts");
+                    b.ToTable("OrderProduct");
                 });
 
             modelBuilder.Entity("ECOMMERCE.models.Product", b =>
