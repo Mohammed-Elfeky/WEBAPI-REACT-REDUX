@@ -11,7 +11,6 @@ const ProductFormEdit = () => {
     const cats = useSelector(({ catState: { cats } }) => cats)
     const theProduct = useSelector(({ productState: { product } }) => product)
     const params= useParams()
-    console.log(params)
     const [name, setName] = useState([])
     const [desc, setDesc] = useState([])
     const [img, setImg] = useState('')

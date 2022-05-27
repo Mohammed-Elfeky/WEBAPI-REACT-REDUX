@@ -48,9 +48,7 @@ const CatFormAdd = () => {
     }
 
     const whenSubmmit = () => {
-
-        alert("hi")
-        // dispatch(addCategory(formState))
+        dispatch(addCategory(formState))
     }
     return (
         <>

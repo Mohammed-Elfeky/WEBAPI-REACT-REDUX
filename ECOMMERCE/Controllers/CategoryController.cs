@@ -9,7 +9,7 @@ namespace ECOMMERCE.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize(Roles = "Admin")]
     public class CategoryController : ControllerBase
     {
         private readonly IcategoryRepo icategoryRepo;
@@ -67,6 +67,7 @@ namespace ECOMMERCE.Controllers
 
 
         [HttpPut("{id:int}")]
+        
         public IActionResult editcat(int id, Category category)
         {
 
