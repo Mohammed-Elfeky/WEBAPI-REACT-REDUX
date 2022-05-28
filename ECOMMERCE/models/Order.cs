@@ -9,6 +9,7 @@ namespace ECOMMERCE.models
         public int Id { get; set; } 
         public string Address { get; set; }
         public DateTime date { get; set; }
+        public decimal total { get; set; }
 
         [ForeignKey("User")]
         public string u_id { get; set; }

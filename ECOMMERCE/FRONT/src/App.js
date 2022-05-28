@@ -10,6 +10,8 @@ import AllProducts from './COMPONENTS/product/AllProducts';
 import CatFormAdd from './COMPONENTS/cat/catFormAdd';
 import SignUp from './COMPONENTS/auth/signUp';
 import SignIn from './COMPONENTS/auth/signIn';
+import AllUserProducts from './COMPONENTS/product/AllUserProducts';
+import Cart from './COMPONENTS/Cart';
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
         <Route path="/edit-cat/:id" element={<CatFormEdit/>}></Route>
         <Route path="/signUp" element={<SignUp/>}></Route>
         <Route path="/signIn" element={<SignIn/>}></Route>
+        <Route path="/userProducts" element={<AllUserProducts/>}></Route>
+        <Route path="/cart" element={<Cart/>}></Route>
       </Routes>
     </div>
   );
