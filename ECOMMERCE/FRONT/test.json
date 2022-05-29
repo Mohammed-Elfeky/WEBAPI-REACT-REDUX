@@ -1,22 +1,57 @@
-{
-    "order": {
-        "address": "string",
-        "date": "2022-05-27T14:12:18.000Z",
-        "u_id": "4cd7908c-1086-4c70-9a11-25d84d805209",
-        "total": "2022-05-27T14:12:18.000Z"
-    },
-    "orderProducts": [
-        {
-            "o_Id": 0,
-            "p_Id": 15,
-            "quantity": 5
-        },
-        {
-            "o_Id": 0,
-            "p_Id": 16,
-            "quantity": 3
-        }
-    ]
-}
+// {
+//     "order": {
+//         "address": "string",
+//         "date": "2022-05-27T14:12:18.000Z",
+//         "u_id": "4cd7908c-1086-4c70-9a11-25d84d805209",
+//         "total": "2022-05-27T14:12:18.000Z"
+//     },
+//     "orderProducts": [
+//         {
+//             "p_Id": 15,
+//             "quantity": 5
+//         },
+//         {
+//             "p_Id": 16,
+//             "quantity": 3
+//         }
+//     ]
+// }
 
 
+// {
+//     "order": {
+//         "address": "",
+//         "date": "",
+//         "u_id": "4cd7908c-1086-4c70-9a11-25d84d805209",
+//         "total": 2006
+//     },
+//     "orderProducts": [
+//         {
+//             "p_Id": 15,
+//             "quantity": 1,
+//             "price": 499,
+//             "name": "JAC21WFWP28246TM1",
+//             "img": "2.webp"
+//         },
+//         {
+//             "p_Id": 11,
+//             "quantity": 1,
+//             "price": 349,
+//             "name": "NULLJAC21WFDN28212TM1",
+//             "img": "j1.webp"
+//         },
+//         {
+//             "p_Id": 16,
+//             "price": 529,
+//             "name": "JAC22WFWP28270TS1",
+//             "img": "3.webp"
+//         },
+//         {
+//             "p_Id": 17,
+//             "quantity": 1,
+//             "price": 629,
+//             "name": "JAC21WLET28223TM1",
+//             "img": "4.webp"
+//         }
+//     ]
+// }

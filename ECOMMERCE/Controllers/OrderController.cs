@@ -4,6 +4,7 @@ using ECOMMERCE.repos;
 using ECOMMERCE.models;
 using ECOMMERCE.DTO;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ECOMMERCE.Controllers
 {
@@ -35,6 +36,7 @@ namespace ECOMMERCE.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult SubmmitOrder(OrderDTO order)
         {
             try

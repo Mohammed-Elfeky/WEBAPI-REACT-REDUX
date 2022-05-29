@@ -3,6 +3,5 @@ const pages={
     403:"/signIn",
 }
 export const navigator=(statusCode)=>{
-    console.log(pages[statusCode])
-    // document.location.href=pages[statusCode]
+    document.location.href=pages[statusCode]
 }

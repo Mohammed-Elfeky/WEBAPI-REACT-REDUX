@@ -1,19 +1,26 @@
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { add ,remove} from "../REDUX/CART/slice";
+import { add ,remove, removeProduct,submmitCart} from "../REDUX/CART/slice";
 import { staticBase } from "../THEBASE/URL";
 const Cart = () => {
     const dispatch = useDispatch()
     const cart = useSelector(({ cartState: { cart } }) => cart)
+    
+
     const handlePlus=(product)=>{
         dispatch(add(product))
     }
     const handleRemove=(id)=>{
         dispatch(remove(id))
     }
+    const handleDelete=(id)=>{
+        dispatch(removeProduct(id))
+    }
+    const whenSubmit=()=>{
+        dispatch(submmitCart(cart))
+    }
     return (
-        <section class="h-100" style={{ backgroundColor: "#eee;" }}>
+        <section class="h-100" style={{ backgroundColor: "#eee" }}>
             <div class="container h-100 py-5">
                 <div class="row d-flex justify-content-center align-items-center h-100">
                     <div class="col-10">
@@ -38,7 +45,7 @@ const Cart = () => {
                                                 </div>
                                                 <div class="col-md-3 col-lg-3 col-xl-3">
                                                     <p class="lead fw-normal mb-2">{name}</p>
-                                                    <p><span class="text-muted">Size: </span>M <span class="text-muted">Color: </span>Grey</p>
+                                                    <p>price: <span class="text-muted">${price}</span></p>
                                                 </div>
                                                 <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
                                                     <button onClick={()=>handleRemove(p_Id)}  class="btn btn-link px-2"
@@ -56,7 +63,7 @@ const Cart = () => {
                                                 <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                                                     <h5 class="mb-0">${price*quantity}</h5>
                                                 </div>
-                                                <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                                                <div onClick={()=>handleDelete(p_Id)} class="col-md-1 col-lg-1 col-xl-1 text-end">
                                                     <a href="#!" class="text-danger"><i class="fas fa-trash fa-lg"></i></a>
                                                 </div>
                                             </div>
@@ -65,7 +72,7 @@ const Cart = () => {
                                 )
                             })
                         }
-
+                        <button className="btn btn-success" onClick={whenSubmit}>submit</button>
                     </div>
                 </div>
             </div>

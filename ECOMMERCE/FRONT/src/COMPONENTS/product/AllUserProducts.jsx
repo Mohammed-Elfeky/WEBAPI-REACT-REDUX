@@ -3,10 +3,9 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getProductsAction } from "../../REDUX/PRODUCT/slice";
 import Product from "./Product";
-
 const AllUserProducts = () => {
     const dispatch = useDispatch()
-
+    
     const products = useSelector(({ productState: { products } }) => products)
 
     useEffect(() => {
@@ -14,7 +13,7 @@ const AllUserProducts = () => {
     }, [])
 
     return (
-        <div className="row">
+        <div className="row justify-content-between">
             {products?.map((product)=><Product key={product.id} {...product} />)}
         </div>
     );

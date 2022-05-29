@@ -1,11 +1,14 @@
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { signOut } from "../../REDUX/AUTH/slice";
-import { useDispatch } from "react-redux";
+import AdminLinks from "./AdminLinks";
+import UnKnownLinks from "./UnknownLinks";
+import UserLinks from "./UserLinks";
 const Nav = () => {
-    const dispatch=useDispatch()
-    const handleClick=()=>{
-        dispatch(signOut())
-    }
+    const user = useSelector(({ authState: { userInfo } }) => userInfo)
+    let links;
+    if(!user) links=<UnKnownLinks/>
+    if(user&&user.role) links = <AdminLinks/>; 
+    if(user&& !user.role) links = <UserLinks/>;
     return (
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
@@ -15,26 +18,12 @@ const Nav = () => {
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <Link class="nav-link" to="/">products</Link>
-                        </li>
-                        <li class="nav-item">
-                            <Link class="nav-link" to="/cats">cats</Link>
-                        </li>
-                        <li class="nav-item">
-                            <Link class="nav-link" to="/signUp">signUp</Link>
-                        </li>
-                        <li class="nav-item">
-                            <Link class="nav-link" to="/signIn">signIn</Link>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" onClick={handleClick}>signOut</a>
-                        </li>
-                        <li class="nav-item">
                             <Link class="nav-link" to="/userProducts">user products</Link>
                         </li>
-                        <li class="nav-item">
-                            <Link class="nav-link" to="/cart">cart</Link>
-                        </li>
+                        {/* {links} */}
+                        <UnKnownLinks />
+                        <AdminLinks />
+                        <UserLinks />
                     </ul>
                 </div>
             </div>
