@@ -12,6 +12,7 @@ import SignUp from './COMPONENTS/auth/signUp';
 import SignIn from './COMPONENTS/auth/signIn';
 import AllUserProducts from './COMPONENTS/product/AllUserProducts';
 import Cart from './COMPONENTS/Cart';
+import Err from './COMPONENTS/other/error';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/signIn" element={<SignIn/>}></Route>
         <Route path="/userProducts" element={<AllUserProducts/>}></Route>
         <Route path="/cart" element={<Cart/>}></Route>
+        <Route path="/error" element={<Err/>}></Route>
       </Routes>
     </div>
   );

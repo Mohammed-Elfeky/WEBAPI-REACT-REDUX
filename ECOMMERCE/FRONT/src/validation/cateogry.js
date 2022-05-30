@@ -1,9 +1,15 @@
 import Joi from "joi";
-export const nameSchema = Joi.object({
-    name: Joi.string()
-        .required()
+export const catSchema = Joi.object({
+    name: Joi.string().required(),
+    description: Joi.string()
+        .required(),
+    img: Joi.custom((val,helper)=>{
+        if(val==null) return helper.message("the img is required");
+        return true
+    })
 })
-export const descSchema = Joi.object({
-    desc: Joi.string()
+export const catSchemaEdit = Joi.object({
+    name: Joi.string().required(),
+    description: Joi.string()
         .required()
 })

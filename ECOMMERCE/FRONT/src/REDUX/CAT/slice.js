@@ -72,6 +72,7 @@ export const catSlice = createSlice({
         builder
             .addCase(addCategory.fulfilled, (state) => {
                 state.err = null;
+                navigator(200)
             })
             .addCase(addCategory.rejected, (state, { payload }) => {
                 if (payload.status !== 400) {
@@ -84,7 +85,7 @@ export const catSlice = createSlice({
                 state.cat = payload;
             })
             .addCase(getCatById.rejected, (state, { payload }) => {
-                console.log("redirect to error page")
+                navigator(payload)
             })
             .addCase(getAllCats.fulfilled, (state, { payload }) => {
                 state.cats = payload;
@@ -93,7 +94,7 @@ export const catSlice = createSlice({
                 navigator(payload)
             })
             .addCase(editCat.fulfilled, () => {
-                console.log("redirect to index")
+                navigator(200)
             })
             .addCase(editCat.rejected, (state, { payload }) => {
                 navigator(payload)

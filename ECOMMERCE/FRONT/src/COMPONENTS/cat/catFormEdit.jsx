@@ -1,92 +1,68 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { addCategory, editCat, getCatById } from '../../REDUX/CAT/slice'
-import Joi from "joi";
-import { nameSchema, descSchema } from '../../validation/cateogry'
+import { catSchemaEdit } from '../../validation/cateogry'
 import { useParams } from "react-router-dom";
+const initformErrorsState={
+    name: "",
+    description: ""
+}
+const initformState= {
+    name: "",
+    description: ""
+}
 const CatFormEdit = () => {
 
     const dispatch = useDispatch()
     const cat = useSelector(({ catState: { cat } }) => cat)
+    const { id } = useParams()
 
-    const {id}= useParams()
+    const [formState, setFormState] = useState(initformState)
+    const [formErrorsState, setFormErrorsState] = useState(initformErrorsState)
 
     useEffect(() => {
         dispatch(getCatById(id))
     }, [])
+
     useEffect(() => {
         if (cat) {
-            setName(cat.name)
-            setDesc(cat.description)
+            setFormState({name:cat.name,description:cat.description})
         }
     }, [cat])
 
-
-    const [name, setName] = useState([])
-    const [desc, setDesc] = useState([])
-    const [img, setImg] = useState(null)
-
-    const [nameErr, setNameErr] = useState('')
-    const [descErr, setDescErr] = useState('')
-    const [imgErr, setImgErr] = useState('')
-
-
-    const nameChange = (e) => {
-        setName(e.target.value)
-    }
-    const descChange = (e) => {
-        setDesc(e.target.value)
-    }
-    const imgChange = (e) => {
-        let form = new FormData()
-        form.append("image", e.target.files[0], e.target.files[0].name)
-        setImg(form)
+    const handleChange = ({ target: { name, value} }) => {
+        setFormState({
+            ...formState,
+            [name]: value
+        })
     }
 
     const whenSubmmit = () => {
 
-        // if(nameSchema.validate({name:name}).error){
-        //     setNameErr(nameSchema.validate({name:name}).error.message)
-        //     return
-        // } 
-        // setNameErr('')
-
-        // if(descSchema.validate({desc:desc}).error){
-        //     setDescErr(descSchema.validate({desc:desc}).error.message)
-        //     return
-        // }
-        // setDescErr('')
-
-        // if(!img){
-        //     setImgErr("the img is required")
-        //     return
-        // }
-        // setImgErr('')
-
-        // console.log("sadsdas")
-
+        const res = catSchemaEdit.validate(formState)
+        if(res.error){
+            setFormErrorsState({
+                ...initformErrorsState,
+                [res.error.details[0].path[0]]:res.error.message
+            })
+            return;
+        }
+        setFormErrorsState(initformErrorsState)
         dispatch(editCat(
             {
-                id: cat.id,
-                catObj: {
-                    name,
-                    description: desc,
-                }
+                id: id,
+                catObj:formState
             }
         ))
     }
     return (
         <>
-            <div>
-                <input value={name} onChange={nameChange} type="text" />
-                <br />
-                <small>{nameErr}</small>
-                <br />
-                <input value={desc} onChange={descChange} type="text" />
-                <br />
-                <small>{descErr}</small>
-                <br />
-                <button onClick={whenSubmmit}>add</button>
+            <div className=" w-25 mx-auto my-5 ">
+                <input className="form-control mb-3" name="name" value={formState.name} onChange={handleChange} type="text" />
+                <small className="text-danger my-1 d-block">{formErrorsState.name}</small>
+                <input className="form-control mb-3" name="description" value={formState.description} onChange={handleChange} type="text" />
+                <small  className="text-danger my-1 d-block">{formErrorsState.description}</small>
+                <button className=" btn btn-dark my-3" onClick={whenSubmmit}>edit</button>
             </div>
         </>
     );

@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { addProduct, getAllProducts, getProductById } from './api';
 import { uploadImage } from '../../commonApis/imageUpload';
 import { updateProduct } from './api';
-
+import { navigator } from '../../HELPERS/navigator'
 const initialState = {
     product: null,
     products: null
@@ -10,39 +10,50 @@ const initialState = {
 
 export const addProductAction = createAsyncThunk(
     'product/add',
-    async ({product,img}) => {
+    async ({ product, img }, thunkAPI) => {
 
-        //submit data
-        let { data } = await addProduct(product)
+        try {
+            //submit data
+            let { data } = await addProduct(product)
 
-        //upload image
-        await uploadImage(data.id, "product",img)
+            //upload image
+            await uploadImage(data.id, "product", img)
 
-        return data;
+            return data;
+        } catch ({ response: { status } }) {
+            return thunkAPI.rejectWithValue( status )
+        }
     }
 );
 
 export const EditProductAction = createAsyncThunk(
     'product/edit',
-    async ({id,product,img}) => {
+    async ({ id, product, img },thunkAPI) => {
+        try {
+            //submit data
+            let res = await updateProduct(id, product)
 
-        //submit data
-        let { data } = await updateProduct(id,product)
+            if (img) {
+                //upload image
+                await uploadImage(res.data.id, "product", img)
+            }
 
-        if(img){
-            //upload image
-            await uploadImage(data.id, "product",img)
+            return {data:res.data,status:res.status};
+        } catch ({ response: { status } }) {
+            return thunkAPI.rejectWithValue( status )
         }
-
-        return data;
     }
 );
 
 export const getProductAction = createAsyncThunk(
     'product/get',
-    async (id) => {
-        let { data } = await getProductById(id)
-        return data;
+    async (id,thunkAPI) => {
+        try {
+            let { data } = await getProductById(id)
+            return data;
+        } catch ({ response: { status } }) {
+            return thunkAPI.rejectWithValue( status )
+        }
     }
 );
 
@@ -61,29 +72,30 @@ export const productSlice = createSlice({
     initialState,
     extraReducers: (builder) => {
         builder
-            .addCase(addProductAction.fulfilled, (state,{payload}) => {
+            .addCase(addProductAction.fulfilled, (state, { payload }) => {
                 state.product = payload;
             })
             .addCase(addProductAction.rejected, (state, { payload }) => {
-                console.log("redirect to error page")
+                navigator(payload)
             })
-            .addCase(EditProductAction.fulfilled, (state,{payload}) => {
-                state.product = payload;
+            .addCase(EditProductAction.fulfilled, (state, { payload:{data,status} }) => {
+                state.product = data;
+                navigator(status)
             })
             .addCase(EditProductAction.rejected, (state, { payload }) => {
-                console.log("redirect to error page")
+              navigator(payload)
             })
-            .addCase(getProductAction.fulfilled, (state,{payload}) => {
+            .addCase(getProductAction.fulfilled, (state, { payload }) => {
                 state.product = payload;
             })
             .addCase(getProductAction.rejected, (state, { payload }) => {
-                console.log("redirect to error page")
+                navigator(payload)
             })
-            .addCase(getProductsAction.fulfilled, (state,{payload}) => {
+            .addCase(getProductsAction.fulfilled, (state, { payload }) => {
                 state.products = payload;
             })
             .addCase(getProductsAction.rejected, (state, { payload }) => {
-                console.log("redirect to error page")
+                navigator(500)
             })
     },
 });

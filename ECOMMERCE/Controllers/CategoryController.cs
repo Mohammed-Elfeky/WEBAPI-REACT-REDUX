@@ -90,7 +90,7 @@ namespace ECOMMERCE.Controllers
             {
                 if (icategoryRepo.FindById(id) == null)
                 {
-                    return BadRequest("the id doesn't exist");
+                    return Problem("the id doesn't exist");
                 }
                 return Ok(icategoryRepo.Delete(id));
             }

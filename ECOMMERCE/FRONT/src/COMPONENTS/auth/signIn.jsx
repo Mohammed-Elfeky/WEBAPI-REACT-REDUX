@@ -29,19 +29,11 @@ const SignIn = () => {
 
     return (
         <>
-            <div>
-                <input name="UserName" onChange={handleChange} type="text" />
-                <br />
-                {/* <small>{formErrorsState.name}</small> */}
-                <br />
-                <input  name="Password" onChange={handleChange} type="password" />
-                <br />
-                {/* <small>{formErrorsState.description}</small> */}
-                <br />
-                <small>{signInError}</small>
-                <br />
-                <button onClick={whenSubmmit}>add</button>
-                <h1></h1>
+            <div className=" w-25 mx-auto my-5 ">
+                <input className="form-control mb-3"  placeholder="name" name="UserName" onChange={handleChange} type="text" />
+                <input className="form-control mb-3"  placeholder="password"  name="Password" onChange={handleChange} type="password" />
+                <small className="text-danger my-1 d-block">{signInError}</small>
+                <button className=" btn btn-dark"  onClick={whenSubmmit}>signIn</button>
             </div>
         </>
     );

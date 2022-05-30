@@ -20,9 +20,9 @@ const AllProducts = () => {
   if(!user || userInfo.role!=="Admin") navigate("/signIn")
 
   return (
-    <>
-      <Link to="/add-product">add</Link>
-      <table class="table">
+    <div className="p-5">
+      <Link className=" btn btn-dark my-5" to="/add-product">add</Link>
+      <table class="table table-hover">
         <thead>
           <tr>
             <th scope="col">product</th>
@@ -51,7 +51,7 @@ const AllProducts = () => {
 
         </tbody>
       </table>
-    </>
+    </div>
   );
 }
 

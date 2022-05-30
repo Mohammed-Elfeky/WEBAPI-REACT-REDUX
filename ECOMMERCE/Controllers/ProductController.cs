@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ECOMMERCE.repos;
 using ECOMMERCE.models;
+using Microsoft.AspNetCore.Authorization;
+
 namespace ECOMMERCE.Controllers
 {
     [Route("api/[controller]")]
@@ -36,7 +38,7 @@ namespace ECOMMERCE.Controllers
                 Product product = iproductRepo.FindById(id);
                 if (product == null)
                 {
-                    return BadRequest("the id doesn't exist");
+                    return Problem("the id doesn't exist");
                 }
                 return Ok(product);
             }
@@ -47,6 +49,7 @@ namespace ECOMMERCE.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles ="Admin")]
         public IActionResult addproduct(Product product)
         {
             try
@@ -62,13 +65,13 @@ namespace ECOMMERCE.Controllers
 
 
         [HttpPut("{id:int}")]
+        [Authorize(Roles = "Admin")]
         public IActionResult editproduct(int id, Product product)
         {
 
             try
             {
-                
-                    if (iproductRepo.FindById(id) == null) return BadRequest("the id doesn't exist");
+                    if (iproductRepo.FindById(id) == null) return Problem("the id doesn't exist");
                     return Ok(iproductRepo.Edit(id, product));
             }
             catch
@@ -79,13 +82,14 @@ namespace ECOMMERCE.Controllers
 
 
         [HttpDelete("{id:int}")]
+        [Authorize(Roles = "Admin")]
         public IActionResult deleteproduct(int id)
         {
             try
             {
                 if (iproductRepo.FindById(id) == null)
                 {
-                    return BadRequest("the id doesn't exist");
+                    return Problem("the id doesn't exist");
                 }
                 return Ok(iproductRepo.Delete(id));
             }

@@ -17,15 +17,18 @@ const AllCats = () => {
     }, [])
 
     if(!user || userInfo.role!=="Admin") navigate("/signIn")
+
     
     return (
-        <>
-        <Link to="/add-cat">add</Link>
-            <table class="table">
+        <div className="p-5">
+        <Link className=" btn btn-dark my-3" to="/add-cat">add</Link>
+            <table class="table  table-hover">
                 <thead>
                     <tr>
                         <th scope="col">category</th>
                         <th scope="col">description</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,7 +51,7 @@ const AllCats = () => {
 
                 </tbody>
             </table>
-        </>
+        </div>
     );
 }
 

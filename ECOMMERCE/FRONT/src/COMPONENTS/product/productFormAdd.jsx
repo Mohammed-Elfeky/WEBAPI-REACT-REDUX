@@ -2,107 +2,90 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { getAllCats } from '../../REDUX/CAT/slice'
 import { addProductAction } from "../../REDUX/PRODUCT/slice";
-import Joi from "joi";
-import { nameSchema, descSchema } from '../../validation/cateogry'
+import {productSchema} from "../../validation/product"
+const initformErrorsState = {
+    name:"",
+    description: "",
+    category: "",
+    price: "",
+    img:""
+}
+const initformState = {
+    name:"",
+    description: "",
+    category: "",
+    price: "",
+    img:null
+}
 const ProductFormAdd = () => {
 
     const dispatch = useDispatch()
     const cats = useSelector(({ catState: { cats } }) => cats)
 
-    const [name, setName] = useState([])
-    const [desc, setDesc] = useState([])
-    const [img, setImg] = useState(null)
-    const [price, setPrice] = useState(null)
-    const [cat, setcat] = useState(null)
+    const [formState, setFormState] = useState(initformState)
+    const [formErrorsState, setFormErrorsState] = useState(initformErrorsState)
 
-
-
-    const [nameErr, setNameErr] = useState('')
-    const [descErr, setDescErr] = useState('')
-    const [imgErr, setImgErr] = useState('')
-    const [priceErr, setPriceErr] = useState(null)
-    const [catErr, setCatErr] = useState(null)
-
-    const nameChange = (e) => {
-        setName(e.target.value)
-    }
-    const descChange = (e) => {
-        setDesc(e.target.value)
-    }
-    const imgChange = (e) => {
-        let form = new FormData()
-        form.append("image", e.target.files[0], e.target.files[0].name)
-        setImg(form)
-    }
-    const priceChange = (e) => {
-        setPrice(e.target.value)
-    }
-    const catChange=(e)=>{
-        setcat(e.target.value)
+    const handleChange = ({ target: { name, value, type, files } }) => {
+        if (type == "file") {
+            let form = new FormData()
+            form.append("image", files[0], files[0].name)
+            setFormState({
+                ...formState,
+                [name]: form
+            })
+            return;
+        }
+        setFormState({
+            ...formState,
+            [name]: value
+        })
     }
 
+    const whenSubmmit = () => {
+        const res = productSchema.validate(formState)
+        if(res.error){
+            setFormErrorsState({
+                ...initformErrorsState,
+                [res.error.details[0].path[0]]:res.error.message
+            })
+            return;
+        }
+        setFormErrorsState(initformErrorsState)
+
+        dispatch(addProductAction(
+            {
+                product: {
+                    name:formState.name,
+                    description: formState.description,
+                    categoryId: +formState.category,
+                    price: +formState.price
+                },
+                img:formState.img
+            }
+        ))
+    }
+
+    
     useEffect(() => {
         dispatch(getAllCats())
     }, [])
 
 
 
-    const whenSubmmit = () => {
 
-        // if(nameSchema.validate({name:name}).error){
-        //     setNameErr(nameSchema.validate({name:name}).error.message)
-        //     return
-        // } 
-        // setNameErr('')
-
-        // if(descSchema.validate({desc:desc}).error){
-        //     setDescErr(descSchema.validate({desc:desc}).error.message)
-        //     return
-        // }
-        // setDescErr('')
-
-        // if(!img){
-        //     setImgErr("the img is required")
-        //     return
-        // }
-        // setImgErr('')
-
-        // console.log("sadsdas")
-
-
-        dispatch(addProductAction(
-            {
-                product:{
-                    name,
-                    description:desc,
-                    categoryId:+cat,
-                    price:+price
-                },
-                img
-            }
-        ))
-    }
     return (
         <>
-            <div>
-                <input onChange={nameChange} type="text" />
-                <br />
-                <small>{nameErr}</small>
-                <br />
-                <input onChange={descChange} type="text" />
-                <br />
-                <small>{descErr}</small>
-                <br />
-                <input onChange={imgChange} type="file" />
-                <br />
-                <small>{imgErr}</small>
-                <br />
-                <input type="number" onChange={priceChange} />
-                <br />
-                <small>{priceErr}</small>
-                <br />
-                <select name="" id="" onChange={catChange}>
-
+            <div className=" w-25 mx-auto my-5 ">
+                <input   placeholder="name" className="form-control mb-3"name="name" onChange={handleChange} type="text" />
+                <small className="text-danger my-1 d-block">{formErrorsState.name}</small>
+                <input   placeholder="description" className="form-control mb-3"name="description" onChange={handleChange} type="text" />
+                <small className="text-danger my-1 d-block">{formErrorsState.description}</small>
+                <input   placeholder="name" className="form-control mb-3"name="img" onChange={handleChange} type="file" />
+                <small className="text-danger my-1 d-block">{formErrorsState.img}</small>
+                <input   placeholder="price" className="form-control mb-3"name="price" type="number" onChange={handleChange} />
+                <small className="text-danger my-1 d-block">{formErrorsState.price}</small>
+                <select class="form-select" name="category" id="" onChange={handleChange}>
+                <option  >select the category</option>
                     {
                         cats?.map(({ id, name }) => {
                             return <option key={id} value={id}>{name}</option>
@@ -110,10 +93,8 @@ const ProductFormAdd = () => {
                         )
                     }
                 </select>
-                <br />
-                <small>{catErr}</small>
-                <br />
-                <button onClick={whenSubmmit}>add</button>
+                <small className="text-danger my-1 d-block">{formErrorsState.category}</small>
+                <button className=" btn btn-dark my-3" onClick={whenSubmmit}>add</button>
             </div>
         </>
     );

@@ -13,7 +13,7 @@ const AllUserProducts = () => {
     }, [])
 
     return (
-        <div className="row justify-content-between">
+        <div className="row justify-content-between p-5">
             {products?.map((product)=><Product key={product.id} {...product} />)}
         </div>
     );
