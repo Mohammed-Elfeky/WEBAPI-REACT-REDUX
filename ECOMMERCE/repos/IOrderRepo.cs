@@ -1,4 +1,5 @@
-﻿using ECOMMERCE.models;
+﻿using ECOMMERCE.DTO;
+using ECOMMERCE.models;
 using System.Collections.Generic;
 
 namespace ECOMMERCE.repos
@@ -6,6 +7,6 @@ namespace ECOMMERCE.repos
     public interface IOrderRepo
     {
         int addOrder(Order order);
-        List<Order> getAllOrders();
+        List<OrderUserNameProducts> getAllOrders();
     }
 }

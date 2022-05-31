@@ -67,8 +67,8 @@ export const convertProductsToDTOformat = (cart) => {
         })
     }
 }
-export const assignU_idToOrder = (cart, uid) => {
-    return { ...cart, order: { ...cart.order, u_id:uid } }
+export const assignU_idToOrderAndDate = (cart, uid) => {
+    return { ...cart, order: { ...cart.order, u_id:uid ,date:new Date()} }
 }
 export const clearCart=()=>{
     localStorage.removeItem("cart")

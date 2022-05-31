@@ -18,6 +18,9 @@ const AdminLinks = () => {
             <li class="nav-item">
                 <Link class="nav-link" to="/cats">cats</Link>
             </li>
+            <li class="nav-item">
+                <Link class="nav-link" to="/Orders">orders</Link>
+            </li>
         </>
     );
 }

@@ -13,6 +13,7 @@ import SignIn from './COMPONENTS/auth/signIn';
 import AllUserProducts from './COMPONENTS/product/AllUserProducts';
 import Cart from './COMPONENTS/Cart';
 import Err from './COMPONENTS/other/error';
+import Orders from './COMPONENTS/order/Orders';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="/userProducts" element={<AllUserProducts/>}></Route>
         <Route path="/cart" element={<Cart/>}></Route>
         <Route path="/error" element={<Err/>}></Route>
+        <Route path="/Orders" element={<Orders/>}></Route>
       </Routes>
     </div>
   );

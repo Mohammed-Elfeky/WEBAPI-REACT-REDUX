@@ -1,4 +1,6 @@
-﻿using ECOMMERCE.models;
+﻿using ECOMMERCE.DTO;
+using ECOMMERCE.models;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -19,9 +21,19 @@ namespace ECOMMERCE.repos
             context.SaveChanges();
             return order.Id;
         }
-        public List<Order> getAllOrders()
+        public List<OrderUserNameProducts> getAllOrders()
         {
-            return context.orders.ToList();
+            var orders = context.orders
+                .Include(o=>o.OrderProducts).ThenInclude(op=>op.Product)
+                .Include(o => o.User).Select(o=>new OrderUserNameProducts()
+                {
+                    id=o.Id,
+                    UserName=o.User.UserName,
+                    total=o.total,
+                    products=o.OrderProducts.
+                    Select(o=>new Product { Name = o.Product.Name, Price = o.Product.Price, img = o.Product.img,count=o.quantity}).ToList()
+                }).ToList();
+            return orders;
         }
     }
 }

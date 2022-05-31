@@ -24,6 +24,7 @@ namespace ECOMMERCE.models
         public virtual Category Category { get; set; }
         public virtual List<OrderProduct> OrderProducts { set; get; }
 
-
+        [NotMapped]
+        public int count { set; get; }
     }
 }

@@ -14,3 +14,6 @@ code {
 .text-red{
   color: rgb(255, 107, 107);
 }
+td,th{
+  text-align: center !important;
+}

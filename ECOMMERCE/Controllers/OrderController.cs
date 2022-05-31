@@ -21,12 +21,13 @@ namespace ECOMMERCE.Controllers
             this.orderProductRepo = orderProductRepo;
         }
 
+        [Authorize(Roles ="Admin")]
         [HttpGet]
         public IActionResult allOrders()
         {
             try
             {
-                List<Order> orders=orderRepo.getAllOrders();
+                List<OrderUserNameProducts> orders=orderRepo.getAllOrders();
                 return Ok(orders);
             }
             catch
