@@ -20,7 +20,8 @@ function App() {
     <div className="App">
       <Nav />
       <Routes>
-        <Route path="/" element={<AllProducts/>}></Route>
+        <Route path="/" element={<AllUserProducts/>}></Route>
+        <Route path="/products" element={<AllProducts/>}></Route>
         <Route path="/add-product" element={<ProductFormAdd/>}></Route>
         <Route path="/edit-product/:id" element={<ProductFormEdit/>}></Route>
         <Route path="/cats" element={<AllCats/>}></Route>
@@ -28,7 +29,6 @@ function App() {
         <Route path="/edit-cat/:id" element={<CatFormEdit/>}></Route>
         <Route path="/signUp" element={<SignUp/>}></Route>
         <Route path="/signIn" element={<SignIn/>}></Route>
-        <Route path="/userProducts" element={<AllUserProducts/>}></Route>
         <Route path="/cart" element={<Cart/>}></Route>
         <Route path="/error" element={<Err/>}></Route>
         <Route path="/Orders" element={<Orders/>}></Route>

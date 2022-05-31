@@ -49,7 +49,7 @@ namespace ECOMMERCE.Controllers
                 return Problem("something went wrong");
             }
         }
-
+        
         [HttpPost]
         public IActionResult addcat(Category category)
         {
@@ -65,9 +65,7 @@ namespace ECOMMERCE.Controllers
             }
         }
 
-
         [HttpPut("{id:int}")]
-        
         public IActionResult editcat(int id, Category category)
         {
 

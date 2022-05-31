@@ -20,5 +20,5 @@ export const getAllProducts=async()=>{
     return await axios.get(`${productBase}`);
 }
 export const deleteProduct=async(id)=>{
-    return await axios.delete(`${productBase}/${id}`);
+    return await axios.delete(`${productBase}/${id}`,config);
 }

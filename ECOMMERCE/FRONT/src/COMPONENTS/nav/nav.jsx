@@ -16,14 +16,11 @@ const Nav = () => {
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
+                    <ul class="navbar-nav w-100">
                         <li class="nav-item">
-                            <Link class="nav-link" to="/userProducts">user products</Link>
+                            <Link class="nav-link" to="/">products</Link>
                         </li>
-                        {/* {links} */}
-                        <UnKnownLinks />
-                        <AdminLinks />
-                        <UserLinks />
+                        {links}
                     </ul>
                 </div>
             </div>

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 const UnKnownLinks = () => {
     return (
         <>
-            <li class="nav-item">
+            <li class="nav-item" style={{ marginLeft:"auto"}}>
                 <Link class="nav-link" to="/signUp">signUp</Link>
             </li>
             <li class="nav-item">

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { addProduct, getAllProducts, getProductById } from './api';
+import { addProduct, deleteProduct, getAllProducts, getProductById } from './api';
 import { uploadImage } from '../../commonApis/imageUpload';
 import { updateProduct } from './api';
 import { navigator } from '../../HELPERS/navigator'
@@ -66,6 +66,18 @@ export const getProductsAction = createAsyncThunk(
     }
 );
 
+export const deleteProductsAction = createAsyncThunk(
+    'products/delete',
+    async (id,thunkAPI) => {
+        try{
+            let { status } = await deleteProduct(id)
+            return status;
+        }catch({response:{status}}){
+           return thunkAPI.rejectWithValue(status)
+        }
+    }
+);
+
 
 export const productSlice = createSlice({
     name: 'product',
@@ -74,13 +86,14 @@ export const productSlice = createSlice({
         builder
             .addCase(addProductAction.fulfilled, (state, { payload }) => {
                 state.product = payload;
+                navigator("products")
             })
             .addCase(addProductAction.rejected, (state, { payload }) => {
                 navigator(payload)
             })
             .addCase(EditProductAction.fulfilled, (state, { payload:{data,status} }) => {
                 state.product = data;
-                navigator(status)
+                navigator("products")
             })
             .addCase(EditProductAction.rejected, (state, { payload }) => {
               navigator(payload)
@@ -96,6 +109,12 @@ export const productSlice = createSlice({
             })
             .addCase(getProductsAction.rejected, (state, { payload }) => {
                 navigator(500)
+            })
+            .addCase(deleteProductsAction.fulfilled, (state, { payload }) => {
+                navigator("products")
+            })
+            .addCase(deleteProductsAction.rejected, (state, { payload }) => {
+                navigator(payload)
             })
     },
 });

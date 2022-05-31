@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { addCat, getCats, getCatWithId, updateCat } from './api'
+import { addCat, deleteCat, getCats, getCatWithId, updateCat } from './api'
 import { uploadImage } from '../../commonApis/imageUpload';
 import { navigator } from '../../HELPERS/navigator';
 const initialState = {
@@ -63,6 +63,16 @@ export const editCat = createAsyncThunk(
     }
 );
 
+export const deleteCatAction = createAsyncThunk(
+    'cat/delete',
+    async (id, thunkAPI) => {
+        try {
+            await deleteCat(id)
+        } catch ({ response: { status } }) {
+            return thunkAPI.rejectWithValue(status)
+        }
+    }
+);
 
 
 export const catSlice = createSlice({
@@ -72,7 +82,7 @@ export const catSlice = createSlice({
         builder
             .addCase(addCategory.fulfilled, (state) => {
                 state.err = null;
-                navigator(200)
+                navigator("cats")
             })
             .addCase(addCategory.rejected, (state, { payload }) => {
                 if (payload.status !== 400) {
@@ -85,6 +95,7 @@ export const catSlice = createSlice({
                 state.cat = payload;
             })
             .addCase(getCatById.rejected, (state, { payload }) => {
+               
                 navigator(payload)
             })
             .addCase(getAllCats.fulfilled, (state, { payload }) => {
@@ -94,9 +105,15 @@ export const catSlice = createSlice({
                 navigator(payload)
             })
             .addCase(editCat.fulfilled, () => {
-                navigator(200)
+                navigator("cats")
             })
             .addCase(editCat.rejected, (state, { payload }) => {
+                navigator(payload)
+            })
+            .addCase(deleteCatAction.fulfilled, () => {
+                navigator("cats")
+            })
+            .addCase(deleteCatAction.rejected, (state, { payload }) => {
                 navigator(payload)
             })
     },

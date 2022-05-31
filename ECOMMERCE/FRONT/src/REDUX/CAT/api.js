@@ -19,3 +19,6 @@ export const getCats=async()=>{
 export const updateCat=async(id,cat)=>{
     return await axios.put(`${catBase}/${id}`,cat,config);
 }
+export const deleteCat=async(id)=>{
+    return await axios.delete(`${catBase}/${id}`,config);
+}
