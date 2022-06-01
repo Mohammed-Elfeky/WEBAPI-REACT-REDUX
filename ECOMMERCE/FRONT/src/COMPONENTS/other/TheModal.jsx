@@ -17,9 +17,6 @@ const TheModal = () => {
     return (
         <>
             <Modal show={isModalVisible} onHide={() => dispatch(hideModal())}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Modal heading</Modal.Title>
-                </Modal.Header>
                 <Modal.Body>
                     are you sure you want to delete this item
                 </Modal.Body>

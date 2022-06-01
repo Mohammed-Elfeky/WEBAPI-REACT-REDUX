@@ -1,11 +1,13 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice,current } from '@reduxjs/toolkit';
 import { addProduct, deleteProduct, getAllProducts, getProductById } from './api';
 import { uploadImage } from '../../commonApis/imageUpload';
 import { updateProduct } from './api';
 import { navigator } from '../../HELPERS/navigator'
+
 const initialState = {
     product: null,
-    products: null
+    products: null,
+    searched:null
 };
 
 export const addProductAction = createAsyncThunk(
@@ -82,6 +84,12 @@ export const deleteProductsAction = createAsyncThunk(
 export const productSlice = createSlice({
     name: 'product',
     initialState,
+    reducers:{
+        searchVal(state,{payload}){
+            state.searched=state.products.filter(ele=>ele.name.toLowerCase().includes(payload.toLowerCase()))
+        }
+    }
+    ,
     extraReducers: (builder) => {
         builder
             .addCase(addProductAction.fulfilled, (state, { payload }) => {
@@ -118,5 +126,5 @@ export const productSlice = createSlice({
             })
     },
 });
-
+export const { searchVal }=productSlice.actions
 export default productSlice.reducer;

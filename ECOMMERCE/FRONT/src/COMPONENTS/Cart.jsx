@@ -5,7 +5,7 @@ import { staticBase } from "../THEBASE/URL";
 const Cart = () => {
     const dispatch = useDispatch()
     const cart = useSelector(({ cartState: { cart } }) => cart)
-    
+    const products = useSelector(({ cartState: { cart: { orderProducts } } }) => orderProducts)
 
     const handlePlus=(product)=>{
         dispatch(add(product))
@@ -24,14 +24,6 @@ const Cart = () => {
             <div class="container h-100 py-5">
                 <div class="row d-flex justify-content-center align-items-center h-100">
                     <div class="col-10">
-
-                        <div class="d-flex justify-content-between align-items-center mb-4">
-                            <h3 class="fw-normal mb-0 text-black">Shopping Cart</h3>
-                            <div>
-                                <p class="mb-0"><span class="text-muted">Sort by:</span> <a href="#!" class="text-body">price <i
-                                    class="fas fa-angle-down mt-1"></i></a></p>
-                            </div>
-                        </div>
                         {
                             cart.orderProducts?.map(({ p_Id, quantity, price, name, img }) => {
                                 return (
@@ -72,7 +64,10 @@ const Cart = () => {
                                 )
                             })
                         }
-                        <button className="btn btn-success" onClick={whenSubmit}>submit</button>
+                        {
+                            products.length > 0 && <button className="btn btn-success" onClick={whenSubmit}>submit</button>
+                        }
+                            
                     </div>
                 </div>
             </div>
